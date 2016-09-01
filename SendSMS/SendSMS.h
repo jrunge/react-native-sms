@@ -10,7 +10,8 @@
 #import <MessageUI/MessageUI.h>
 
 @interface SendSMS : NSObject <MFMessageComposeViewControllerDelegate, RCTBridgeModule> {
-    RCTResponseSenderBlock _callback;
+    RCTPromiseResolveBlock _resolve;
+    RCTPromiseRejectBlock _reject;
 }
 
 @end

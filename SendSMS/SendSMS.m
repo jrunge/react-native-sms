@@ -17,7 +17,7 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_REMAP_METHOD(send:(NSDictionary *),
+RCT_EXPORT_METHOD(send:(NSDictionary *)options
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -48,13 +48,13 @@ RCT_REMAP_METHOD(send:(NSDictionary *),
     
     switch (result) {
         case MessageComposeResultSent:
-            _resolve();
+            _resolve(@YES);
             break;
         case MessageComposeResultCancelled:
-            _reject();
+            _reject(@NO, @NO, @NO);
             break;
         default:
-            _reject();
+            _reject(@NO, @NO, @NO);
             break;
     }
 
