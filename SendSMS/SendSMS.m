@@ -45,16 +45,16 @@ RCT_EXPORT_METHOD(send:(NSDictionary *)options
 }
 
 -(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-    
+
     switch (result) {
         case MessageComposeResultSent:
             _resolve(@YES);
             break;
         case MessageComposeResultCancelled:
-            _reject(@NO, @NO, @NO);
+            _reject(@"cancelled", @"cancelled", nil);
             break;
         default:
-            _reject(@NO, @NO, @NO);
+            _reject(@"error", @"error", nil);
             break;
     }
 
