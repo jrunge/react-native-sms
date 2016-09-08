@@ -45,8 +45,4 @@ public class SendSMSPackage implements ReactPackage {
 
         return instance;
     }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        sendSms.onActivityResult(requestCode, resultCode, data);
-    }
 }
