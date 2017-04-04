@@ -1,4 +1,5 @@
+//@flow
 'use strict';
 
-import { NativeModules } from 'react-native'
-export default NativeModules.SendSMS;
+import { NativeModules} from 'react-native'
+module.exports = NativeModules.SendSMS;

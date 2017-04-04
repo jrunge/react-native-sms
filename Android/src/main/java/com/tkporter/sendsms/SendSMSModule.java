@@ -8,7 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.telephony.SmsManager;
-
+import android.os.Build;
+import android.provider.Telephony;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -38,6 +39,7 @@ public class SendSMSModule extends ReactContextBaseJavaModule {
     public SendSMSModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+        // reactContext.addActivityEventListener(this);
     }
 
     @Override
@@ -92,6 +94,20 @@ public class SendSMSModule extends ReactContextBaseJavaModule {
 
         PendingIntent sentIntent = PendingIntent.getBroadcast(getCurrentActivity(), 0, new Intent(intentFilterAction), 0);
 
+        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //     String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(reactContext);
+        //     sendIntent = new Intent(Intent.ACTION_SEND);
+        //     if (defaultSmsPackageName != null){
+        //         sendIntent.setPackage(defaultSmsPackageName);
+        //     }
+        //     sendIntent.setType("text/plain");
+        // }else {
+        //     sendIntent = new Intent(Intent.ACTION_VIEW);
+        //     sendIntent.setType("vnd.android-dir/mms-sms");
+        // }
+        //
+        // sendIntent.putExtra("sms_body", body);
+
         // depending on the number of parts we send a text message or multi parts
         if (parts.size() > 1) {
             ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
@@ -111,7 +127,7 @@ public class SendSMSModule extends ReactContextBaseJavaModule {
             public void run() {
                 //parsing arguments
                 String separator = ";";
-                if (android.os.Build.MANUFACTURER.equalsIgnoreCase("Samsung")) {
+                if (Build.MANUFACTURER.equalsIgnoreCase("Samsung")) {
                     // See http://stackoverflow.com/questions/18974898/send-sms-through-intent-to-multiple-phone-numbers/18975676#18975676
                     separator = ",";
                 }
