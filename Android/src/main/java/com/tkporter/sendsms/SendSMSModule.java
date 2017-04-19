@@ -89,7 +89,7 @@ public class SendSMSModule extends ReactContextBaseJavaModule {
         };
 
         // randomize the intent filter action to avoid using the same receiver
-        String intentFilterAction = INTENT_FILTER_SMS_SENT + java.util.UUID.randomUUID().toString();
+        String intentFilterAction = INTENT_FILTER_SMS_SENT;
         getCurrentActivity().registerReceiver(broadcastReceiver, new IntentFilter(intentFilterAction));
 
         PendingIntent sentIntent = PendingIntent.getBroadcast(getCurrentActivity(), 0, new Intent(intentFilterAction), 0);
